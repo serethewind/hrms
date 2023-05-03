@@ -1,25 +1,39 @@
 package SubClasses;
 
 import BaseClass.Property;
+import Enums.PropertyCode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Condo extends Property {
 
     private int numberOfFloors;
-    private String amenities;
+
+    public Condo(String propertyCode, String location, int numberOfBedrooms, int numberOfBathrooms, double rentPerMonth, boolean isOccupiedStatus, PropertyCode prefix, int numberOfFloors) {
+        super(propertyCode, location, numberOfBedrooms, numberOfBathrooms, rentPerMonth, isOccupiedStatus, prefix);
+        this.numberOfFloors = numberOfFloors;
+    }
+
+    //    private PropertyCode propertyCode = PropertyCode.CON;
+//
+//
+//    private int count = 1;
+//    public String generatePropertyCode() {
+//        String code = "CON" + String.format("%03d", count++);
+//        return code;
+//    }
     @Override
     public double rentalIncome() {
         return getNumberOfFloors() * getNumberOfBedrooms() * getRentPerMonth();
     }
 
     @Override
-    public String propertyCodeGenerator() {
-        return null;
+    public String toString() {
+        return super.toString() + "Condo{" +
+                "numberOfFloors=" + numberOfFloors +
+                '}';
     }
 }
