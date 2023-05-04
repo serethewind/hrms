@@ -1,17 +1,19 @@
 package SubClasses;
 
 import BaseClass.Property;
-import Enums.PropertyCode;
+import Enums.PropertyCodeEnum;
 import lombok.Data;
 
 @Data
 public class Condo extends Property {
 
     private int numberOfFloors;
+    private String amenities;
 
-    public Condo(String propertyCode, String location, int numberOfBedrooms, int numberOfBathrooms, double rentPerMonth, boolean isOccupiedStatus, PropertyCode prefix, int numberOfFloors) {
+    public Condo(String propertyCode, String location, int numberOfBedrooms, int numberOfBathrooms, double rentPerMonth, boolean isOccupiedStatus, PropertyCodeEnum prefix, int numberOfFloors, String amenities) {
         super(propertyCode, location, numberOfBedrooms, numberOfBathrooms, rentPerMonth, isOccupiedStatus, prefix);
         this.numberOfFloors = numberOfFloors;
+        this.amenities = amenities;
     }
 
 
@@ -25,13 +27,16 @@ public class Condo extends Property {
 //    }
     @Override
     public double rentalIncome() {
-        return getNumberOfFloors() * getNumberOfBedrooms() * getRentPerMonth();
+        if (isOccupiedStatus()){
+            return getNumberOfFloors() * getNumberOfBedrooms() * getRentPerMonth();
+        }
+        return 0;
     }
 
     @Override
     public String toString() {
-        return super.toString() + "Condo{" +
-                "numberOfFloors=" + numberOfFloors +
-                '}';
+        return super.toString() + "," + '\n' +
+                "numberOfFloors: " + getNumberOfFloors() + "," + '\n' +
+                "amenities: " + getAmenities() + "}" + '\n' + '\n';
     }
 }

@@ -1,7 +1,7 @@
 package BaseClass;
 
-import Enums.PropertyCode;
-import Utility.PropertyCodeGenerator;
+import Enums.PropertyCodeEnum;
+import Utility.Util.PropertyCodeGenerator;
 import lombok.*;
 
 @Getter
@@ -27,32 +27,32 @@ public abstract class Property {
     private int numberOfBathrooms;
     private double rentPerMonth;
     private boolean isOccupiedStatus;
-    private PropertyCode prefix;
+    private PropertyCodeEnum prefix;
 
-    public Property(String propertyCode, String location, int numberOfBedrooms, int numberOfBathrooms, double rentPerMonth, boolean isOccupiedStatus, PropertyCode prefix) {
+    public Property(String propertyCode, String location, int numberOfBedrooms, int numberOfBathrooms, double rentPerMonth, boolean isOccupiedStatus, PropertyCodeEnum prefix) {
         this.propertyCode = PropertyCodeGenerator.generatePropertyCode(prefix);
         this.location = location;
         this.numberOfBedrooms = numberOfBedrooms;
         this.numberOfBathrooms = numberOfBathrooms;
         this.rentPerMonth = rentPerMonth;
         this.isOccupiedStatus = isOccupiedStatus;
+        this.prefix = prefix;
     }
 
     public void setPropertyCode(String propertyCode) {
         this.propertyCode = PropertyCodeGenerator.generatePropertyCode(prefix);
+
     }
 
     public abstract double rentalIncome();
 
     @Override
     public String toString() {
-        return "Property{" +
-                "propertyCode='" + propertyCode + '\'' +
-                ", location='" + location + '\'' +
-                ", numberOfBedrooms=" + numberOfBedrooms +
-                ", numberOfBathrooms=" + numberOfBathrooms +
-                ", rentPerMonth=" + rentPerMonth +
-                ", isOccupiedStatus=" + isOccupiedStatus +
-                '}';
+        return "{propertyCode: " + getPropertyCode() + "," + '\n' +
+                "location: " + getLocation() + "," + '\n' +
+                "numberOfBedrooms: " + getNumberOfBedrooms() + "," + '\n' +
+                "numberOfBathrooms: " + getNumberOfBathrooms() + "," + '\n' +
+                "rentPerMonth: " + getRentPerMonth() + "," + '\n' +
+                "isOccupiedStatus: " + isOccupiedStatus();
     }
 }

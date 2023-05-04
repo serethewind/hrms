@@ -1,11 +1,9 @@
 package SubClasses;
 
 import BaseClass.Property;
-import Enums.PropertyCode;
+import Enums.PropertyCodeEnum;
 
-import Utility.PropertyCodeGenerator;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,22 +14,26 @@ import lombok.Setter;
 
 public class Apartment extends Property {
     private String floorNumber;
-    private PropertyCode type;
+    private PropertyCodeEnum type;
 
-    public Apartment(String propertyCode, String location, int numberOfBedrooms, int numberOfBathrooms, double rentPerMonth, boolean isOccupiedStatus, PropertyCode prefix, String floorNumber) {
+    public Apartment(String propertyCode, String location, int numberOfBedrooms, int numberOfBathrooms, double rentPerMonth, boolean isOccupiedStatus, PropertyCodeEnum prefix, String floorNumber) {
         super(propertyCode, location, numberOfBedrooms, numberOfBathrooms, rentPerMonth, isOccupiedStatus, prefix);
         this.floorNumber = floorNumber;
     }
 
     @Override
     public double rentalIncome() {
-        return getNumberOfBedrooms() * getRentPerMonth();
+        if (isOccupiedStatus()){
+            return getNumberOfBedrooms() * getRentPerMonth();
+        }
+        return 0;
     }
 
     @Override
     public String toString() {
-        return  super.toString() + "Apartment{" +
-                "floorNumber='" + floorNumber + '\'' +
-                '}';
+        return  super.toString() + "," + '\n' +
+                "floorNumber: " + getFloorNumber() + "," + '\n' +
+                "rentalIncome: " + rentalIncome() + "}" + '\n' + '\n';
     }
+
 }

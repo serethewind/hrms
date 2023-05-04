@@ -1,10 +1,8 @@
 package SubClasses;
 
 import BaseClass.Property;
-import Enums.PropertyCode;
-import lombok.AllArgsConstructor;
+import Enums.PropertyCodeEnum;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 public class House extends Property {
@@ -12,7 +10,7 @@ public class House extends Property {
     private int numberOfFloors;
     private double yardSize;
 
-    public House(String propertyCode, String location, int numberOfBedrooms, int numberOfBathrooms, double rentPerMonth, boolean isOccupiedStatus, PropertyCode prefix, int numberOfFloors, double yardSize) {
+    public House(String propertyCode, String location, int numberOfBedrooms, int numberOfBathrooms, double rentPerMonth, boolean isOccupiedStatus, PropertyCodeEnum prefix, int numberOfFloors, double yardSize) {
         super(propertyCode, location, numberOfBedrooms, numberOfBathrooms, rentPerMonth, isOccupiedStatus, prefix);
         this.numberOfFloors = numberOfFloors;
         this.yardSize = yardSize;
@@ -27,14 +25,17 @@ public class House extends Property {
 //    }
     @Override
     public double rentalIncome() {
-        return getNumberOfFloors() * getNumberOfBedrooms() * getRentPerMonth();
+        if (isOccupiedStatus()) {
+            return getNumberOfFloors() * getNumberOfBedrooms() * getRentPerMonth();
+        }
+        return 0;
     }
 
     @Override
     public String toString() {
-        return super.toString() + "House{" +
-                "numberOfFloors=" + numberOfFloors +
-                ", yardSize=" + yardSize +
-                '}';
+        return super.toString() + "," + '\n' +
+                "numberOfFloors: " + getNumberOfFloors() + "," + '\n' +
+                "yardSize: " + getYardSize() + "}"
+                + '\n' + '\n';
     }
 }

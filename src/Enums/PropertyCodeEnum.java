@@ -1,5 +1,5 @@
 package Enums;
 
-public enum PropertyCode {
+public enum PropertyCodeEnum {
     HOU, APA, CON
 }

@@ -1,13 +1,13 @@
 package Repository;
 
 import BaseClass.Property;
-import SubClasses.Apartment;
-import SubClasses.Condo;
-import SubClasses.House;
+import Enums.PropertyCodeEnum;
+import Utility.Reports.*;
+import Utility.Util.PropertyName;
+import Utility.Util.ViewAllPropertyType;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 public class RentalRepository {
 
@@ -17,23 +17,15 @@ public class RentalRepository {
         this.properties = new ArrayList<>();
     }
 
-    //add Method
+    //Create implementation of CRUD: Add Method
     public List<Property> addProperty(Property property) {
         properties.add(property);
         return properties;
     }
 
-    //update Method
+    //Update implementation of CRUD: Update Method
     public List<Property> updateProperty(Property updatedProperty) {
         //say we can create an upDatedProperty, however the propertyCode of the updated property will not change.
-//        try {
-//            if (properties.contains(property)) {
-//                property.setRentPerMonth(value);
-////                property.setOccupiedStatus(!property.isOccupiedStatus());
-//            }
-//        } catch (Exception exception) {
-//            exception.getMessage();
-//        }
         for (int i = 0; i < properties.size(); i++) {
             Property property = properties.get(i);
             if (property.getPropertyCode().equalsIgnoreCase(updatedProperty.getPropertyCode())) {
@@ -43,19 +35,13 @@ public class RentalRepository {
         return properties;
     }
 
+    //    Delete implementation of CRUD: Delete Method
     public List<Property> deleteProperty(String propertyCode) {
         for (Property property : properties) {
             if (property.getPropertyCode().equalsIgnoreCase(propertyCode)) {
                 properties.remove(property);
             }
         }
-//        try {
-//            if (properties.contains(property)) {
-//                properties.remove(property);
-//            }
-//        } catch (Exception exception) {
-//            exception.getMessage();
-//        }
         return properties;
     }
 
@@ -74,34 +60,8 @@ public class RentalRepository {
         return properties;
     }
 
-    public List<House> viewAllHouses() {
-        ArrayList<House> houses = new ArrayList<>();
-        for (Property property : properties) {
-            if (property instanceof House) {
-                houses.add((House) property);
-            }
-        }
-        return houses;
-    }
-
-    public List<Condo> viewAllCondos() {
-        ArrayList<Condo> condos = new ArrayList<>();
-        for (Property property : properties) {
-            if (property instanceof Condo) {
-                condos.add((Condo) property);
-            }
-        }
-        return condos;
-    }
-
-    public List<Apartment> viewAllApartments() {
-        ArrayList<Apartment> apartments = new ArrayList<>();
-        for (Property property : properties) {
-            if (property instanceof Apartment) {
-                apartments.add((Apartment) property);
-            }
-        }
-        return apartments;
+    public List<Property> viewAllSpecificPropertySubclass(PropertyCodeEnum prefix) {
+        return ViewAllPropertyType.viewAllPropertiesSubclass(prefix, properties);
     }
 
     public List<Property> viewOccupiedProperties() {
@@ -147,87 +107,32 @@ public class RentalRepository {
         return properties.size();
     }
 
-
-    public int totalNumberOfHouses() {
-        ArrayList<House> houses = new ArrayList<>();
-        for (Property property : properties) {
-            if (property instanceof House) {
-                houses.add((House) property);
-            }
-        }
-        return houses.size();
+    public int totalNumberOfSpecifiedPropertySubclass(PropertyCodeEnum prefix) {
+        return TotalPropertiesSubClass.totalNumberOfSpecifiedProperty(prefix, properties);
     }
 
-    public int totalNumberOfCondos() {
-        ArrayList<Condo> condos = new ArrayList<>();
-        for (Property property : properties) {
-            if (property instanceof Condo) {
-                condos.add((Condo) property);
-            }
-        }
-        return condos.size();
+    public int totalNumberOfBedroomsInSpecifiedPropertySubclass(PropertyCodeEnum prefix) {
+        return TotalBedroomPropertySubclass.totalNumberOfBedrooms(prefix, properties);
     }
 
-    public int totalNumberOfApartments() {
-        ArrayList<Apartment> apartments = new ArrayList<>();
-        for (Property property : properties) {
-            if (property instanceof Apartment) {
-                apartments.add((Apartment) property);
-            }
-        }
-        return apartments.size();
+    public int totalNumberOfBathroomsInSpecifiedPropertySubclass(PropertyCodeEnum prefix) {
+        return TotalBathroomPropertySubclass.totalNumberOfBathrooms(prefix, properties);
     }
 
-    public int apartmentTotalNumberOfBedrooms() {
-        int bedroomCount = 0;
-        for (Property property : properties) {
-            if (property instanceof Apartment) {
-               bedroomCount += property.getNumberOfBedrooms();
-            }
-        }
-        return bedroomCount;
+    public Double totalRentalIncomeForSpecifiedPropertySubclass(PropertyCodeEnum prefix) {
+        return TotalRentalIncomeSubclass.totalRentalIncome(prefix, properties);
     }
 
-    public int apartmentTotalNumberOfBathrooms() {
-        int bathroomCount = 0;
-        for (Property property : properties) {
-            if (property instanceof Apartment) {
-                bathroomCount += property.getNumberOfBathrooms();
-            }
-        }
-        return bathroomCount;
+    public int totalNumberOfOccupiedPropertiesInSpecifiedPropertySubclass(PropertyCodeEnum prefix) {
+        return TotalNumberOfOccupiedPropertySubclass.totalNumberOfOccupied(prefix, properties);
     }
 
-    public Double apartmentTotalRentalIncome() {
-        Double income = 0.0;
-        for (Property property : properties) {
-            if (property instanceof Apartment) {
-                income += property.rentalIncome();
-            }
-        }
-        return income;
+    public int totalNumberOfUnoccupiedPropertiesInSpecifiedPropertySubclass(PropertyCodeEnum prefix) {
+        return TotalNumberOfUnoccupiedPropertySubClass.totalNumberOfUnoccupied(prefix, properties);
     }
-
-    public int apartmentTotalOccupied(){
-        int count = 0;
-        for (Property property : properties){
-            if (property instanceof Apartment) {
-
-            }
-        }
-    }
-
-
-
-
-
-    public int apartmentVariablesTotal() {
-
-    }
-
 
     /**
-     * . Total Number of all properties
+     * a. Total Number of all properties
      * b. Total Number of all Apartments
      * ▪ Total number of bedrooms
      * ▪ Total number of bathrooms
@@ -235,6 +140,67 @@ public class RentalRepository {
      * ▪ Total number of occupied
      * ▪ Total number of unoccupied
      *
+     * @return
      */
+
+    public String toString(PropertyCodeEnum prefix) {
+        return "Total Number of all properties: " + totalNumberOfProperties() + '\n' +
+                "Total Number of all " + PropertyName.propertyName(prefix) + " : " + totalNumberOfSpecifiedPropertySubclass(prefix) + '\n' +
+                "Total Number of bedrooms: " + totalNumberOfBedroomsInSpecifiedPropertySubclass(prefix) + '\n' +
+                "Total Number of bathrooms: " + totalNumberOfBathroomsInSpecifiedPropertySubclass(prefix) + '\n' +
+                "Total rental income per month: " + totalRentalIncomeForSpecifiedPropertySubclass(prefix) + '\n' +
+                "Total Number of occupied properties: " + totalNumberOfOccupiedPropertiesInSpecifiedPropertySubclass(prefix) + '\n' +
+                "Total Number of unoccupied properties: " + totalNumberOfUnoccupiedPropertiesInSpecifiedPropertySubclass(prefix) + '\n'
+                ;
+    }
+
+    //    public List<House> viewAllHouses() {
+//        ArrayList<House> houses = new ArrayList<>();
+//        for (Property property : properties) {
+//            if (property instanceof House) {
+//                houses.add((House) property);
+//            }
+//        }
+//        return houses;
+//    }
+
+//    public List<Condo> viewAllCondos() {
+//        ArrayList<Condo> condos = new ArrayList<>();
+//        for (Property property : properties) {
+//            if (property instanceof Condo) {
+//                condos.add((Condo) property);
+//            }
+//        }
+//        return condos;
+//    }
+//    public List<Apartment> viewAllApartments() {
+//        ArrayList<Apartment> apartments = new ArrayList<>();
+//        for (Property property : properties) {
+//            if (property instanceof Apartment) {
+//                apartments.add((Apartment) property);
+//            }
+//        }
+//        return apartments;
+//    }
+//    public int totalNumberOfCondos() {
+//        ArrayList<Condo> condos = new ArrayList<>();
+//        for (Property property : properties) {
+//            if (property instanceof Condo) {
+//                condos.add((Condo) property);
+//            }
+//        }
+//        return condos.size();
+//    }
+//    public int apartmentTotalNumberOfBedrooms() {
+//        int bedroomCount = 0;
+//        for (Property property : properties) {
+//            if (property instanceof Apartment) {
+//               bedroomCount += property.getNumberOfBedrooms();
+//            }
+//        }
+//        return bedroomCount;
+//    }
+
+
 }
 

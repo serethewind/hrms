@@ -1,13 +1,13 @@
-package Utility;
+package Utility.Util;
 
-import Enums.PropertyCode;
+import Enums.PropertyCodeEnum;
 
 public class PropertyCodeGenerator {
     private static int houseCount = 1;
     private static int condoCount = 1;
     private static int apartmentCount = 1;
 
-    public static String generatePropertyCode(PropertyCode prefix) {
+    public static String generatePropertyCode(PropertyCodeEnum prefix) {
         String code = "";
 
         switch (prefix) {
@@ -27,4 +27,6 @@ public class PropertyCodeGenerator {
         }
         return code;
     }
+
+
 }
