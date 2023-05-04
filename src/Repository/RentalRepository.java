@@ -131,18 +131,6 @@ public class RentalRepository {
         return TotalNumberOfUnoccupiedPropertySubClass.totalNumberOfUnoccupied(prefix, properties);
     }
 
-    /**
-     * a. Total Number of all properties
-     * b. Total Number of all Apartments
-     * ▪ Total number of bedrooms
-     * ▪ Total number of bathrooms
-     * ▪ Total rental income per month
-     * ▪ Total number of occupied
-     * ▪ Total number of unoccupied
-     *
-     * @return
-     */
-
     public String toString(PropertyCodeEnum prefix) {
         return "Total Number of all properties: " + totalNumberOfProperties() + '\n' +
                 "Total Number of all " + PropertyName.propertyName(prefix) + " : " + totalNumberOfSpecifiedPropertySubclass(prefix) + '\n' +
@@ -153,54 +141,6 @@ public class RentalRepository {
                 "Total Number of unoccupied properties: " + totalNumberOfUnoccupiedPropertiesInSpecifiedPropertySubclass(prefix) + '\n'
                 ;
     }
-
-    //    public List<House> viewAllHouses() {
-//        ArrayList<House> houses = new ArrayList<>();
-//        for (Property property : properties) {
-//            if (property instanceof House) {
-//                houses.add((House) property);
-//            }
-//        }
-//        return houses;
-//    }
-
-//    public List<Condo> viewAllCondos() {
-//        ArrayList<Condo> condos = new ArrayList<>();
-//        for (Property property : properties) {
-//            if (property instanceof Condo) {
-//                condos.add((Condo) property);
-//            }
-//        }
-//        return condos;
-//    }
-//    public List<Apartment> viewAllApartments() {
-//        ArrayList<Apartment> apartments = new ArrayList<>();
-//        for (Property property : properties) {
-//            if (property instanceof Apartment) {
-//                apartments.add((Apartment) property);
-//            }
-//        }
-//        return apartments;
-//    }
-//    public int totalNumberOfCondos() {
-//        ArrayList<Condo> condos = new ArrayList<>();
-//        for (Property property : properties) {
-//            if (property instanceof Condo) {
-//                condos.add((Condo) property);
-//            }
-//        }
-//        return condos.size();
-//    }
-//    public int apartmentTotalNumberOfBedrooms() {
-//        int bedroomCount = 0;
-//        for (Property property : properties) {
-//            if (property instanceof Apartment) {
-//               bedroomCount += property.getNumberOfBedrooms();
-//            }
-//        }
-//        return bedroomCount;
-//    }
-
 
 }
 
