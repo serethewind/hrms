@@ -44,8 +44,8 @@ public class RentalRepository {
     }
 
     public List<Property> deleteProperty(String propertyCode) {
-        for (Property property : properties){
-            if (property.getPropertyCode().equalsIgnoreCase(propertyCode)){
+        for (Property property : properties) {
+            if (property.getPropertyCode().equalsIgnoreCase(propertyCode)) {
                 properties.remove(property);
             }
         }
@@ -107,7 +107,7 @@ public class RentalRepository {
     public List<Property> viewOccupiedProperties() {
         ArrayList<Property> occupiedProperties = new ArrayList<>();
         for (Property property : properties) {
-            if (!property.isOccupiedStatus()) {
+            if (property.isOccupiedStatus()) {
                 occupiedProperties.add(property);
             }
         }
@@ -117,7 +117,7 @@ public class RentalRepository {
     public List<Property> viewUnOccupiedProperties() {
         ArrayList<Property> unOccupiedProperties = new ArrayList<>();
         for (Property property : properties) {
-            if (property.isOccupiedStatus()) {
+            if (!property.isOccupiedStatus()) {
                 unOccupiedProperties.add(property);
             }
         }
@@ -142,5 +142,99 @@ public class RentalRepository {
         }
         return null;
     }
+
+    public int totalNumberOfProperties() {
+        return properties.size();
+    }
+
+
+    public int totalNumberOfHouses() {
+        ArrayList<House> houses = new ArrayList<>();
+        for (Property property : properties) {
+            if (property instanceof House) {
+                houses.add((House) property);
+            }
+        }
+        return houses.size();
+    }
+
+    public int totalNumberOfCondos() {
+        ArrayList<Condo> condos = new ArrayList<>();
+        for (Property property : properties) {
+            if (property instanceof Condo) {
+                condos.add((Condo) property);
+            }
+        }
+        return condos.size();
+    }
+
+    public int totalNumberOfApartments() {
+        ArrayList<Apartment> apartments = new ArrayList<>();
+        for (Property property : properties) {
+            if (property instanceof Apartment) {
+                apartments.add((Apartment) property);
+            }
+        }
+        return apartments.size();
+    }
+
+    public int apartmentTotalNumberOfBedrooms() {
+        int bedroomCount = 0;
+        for (Property property : properties) {
+            if (property instanceof Apartment) {
+               bedroomCount += property.getNumberOfBedrooms();
+            }
+        }
+        return bedroomCount;
+    }
+
+    public int apartmentTotalNumberOfBathrooms() {
+        int bathroomCount = 0;
+        for (Property property : properties) {
+            if (property instanceof Apartment) {
+                bathroomCount += property.getNumberOfBathrooms();
+            }
+        }
+        return bathroomCount;
+    }
+
+    public Double apartmentTotalRentalIncome() {
+        Double income = 0.0;
+        for (Property property : properties) {
+            if (property instanceof Apartment) {
+                income += property.rentalIncome();
+            }
+        }
+        return income;
+    }
+
+    public int apartmentTotalOccupied(){
+        int count = 0;
+        for (Property property : properties){
+            if (property instanceof Apartment) {
+
+            }
+        }
+    }
+
+
+
+
+
+    public int apartmentVariablesTotal() {
+
+    }
+
+
+    /**
+     * . Total Number of all properties
+     * b. Total Number of all Apartments
+     * ▪ Total number of bedrooms
+     * ▪ Total number of bathrooms
+     * ▪ Total rental income per month
+     * ▪ Total number of occupied
+     * ▪ Total number of unoccupied
+     *
+     */
 }
 

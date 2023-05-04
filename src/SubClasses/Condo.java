@@ -2,10 +2,7 @@ package SubClasses;
 
 import BaseClass.Property;
 import Enums.PropertyCode;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Data
 public class Condo extends Property {
@@ -16,6 +13,7 @@ public class Condo extends Property {
         super(propertyCode, location, numberOfBedrooms, numberOfBathrooms, rentPerMonth, isOccupiedStatus, prefix);
         this.numberOfFloors = numberOfFloors;
     }
+
 
     //    private PropertyCode propertyCode = PropertyCode.CON;
 //

@@ -2,26 +2,26 @@ package SubClasses;
 
 import BaseClass.Property;
 import Enums.PropertyCode;
+
+import Utility.PropertyCodeGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+
+@Getter
+@Setter
+@AllArgsConstructor
+
 public class Apartment extends Property {
     private String floorNumber;
+    private PropertyCode type;
 
-    public Apartment(String propertyCode, String location, int numberOfBedrooms, int numberOfBathrooms, double rentPerMonth, boolean isOccupiedStatus, PropertyCode prefix, String floorNumber1) {
+    public Apartment(String propertyCode, String location, int numberOfBedrooms, int numberOfBathrooms, double rentPerMonth, boolean isOccupiedStatus, PropertyCode prefix, String floorNumber) {
         super(propertyCode, location, numberOfBedrooms, numberOfBathrooms, rentPerMonth, isOccupiedStatus, prefix);
         this.floorNumber = floorNumber;
     }
-    //    private PropertyCode propertyCode = PropertyCode.APA;
-//    private int count = 1;
-//
-//    public String generatePropertyCode() {
-//        String code = "APA" + String.format("%03d", count++);
-//        return code;
-//    }
-
 
     @Override
     public double rentalIncome() {

@@ -1,13 +1,12 @@
 package BaseClass;
 
 import Enums.PropertyCode;
+import Utility.PropertyCodeGenerator;
 import lombok.*;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public abstract class Property {
     /**
      * Property Code(The code of the property must be in 3 characters + 4 digits format,
@@ -28,9 +27,10 @@ public abstract class Property {
     private int numberOfBathrooms;
     private double rentPerMonth;
     private boolean isOccupiedStatus;
+    private PropertyCode prefix;
 
     public Property(String propertyCode, String location, int numberOfBedrooms, int numberOfBathrooms, double rentPerMonth, boolean isOccupiedStatus, PropertyCode prefix) {
-        this.propertyCode = generatePropertyCode(prefix);
+        this.propertyCode = PropertyCodeGenerator.generatePropertyCode(prefix);
         this.location = location;
         this.numberOfBedrooms = numberOfBedrooms;
         this.numberOfBathrooms = numberOfBathrooms;
@@ -38,34 +38,21 @@ public abstract class Property {
         this.isOccupiedStatus = isOccupiedStatus;
     }
 
-    public void setPropertyCode(String propertyCode, PropertyCode prefix) {
-        this.propertyCode = generatePropertyCode(prefix);
+    public void setPropertyCode(String propertyCode) {
+        this.propertyCode = PropertyCodeGenerator.generatePropertyCode(prefix);
     }
-
 
     public abstract double rentalIncome();
 
-    private int count = 1;
-
-    private String generatePropertyCode(PropertyCode prefix) {
-        String code = "";
-
-        switch (prefix) {
-            case APA: {
-                code = "APA" + String.format("%03d", count++);
-            }
-            break;
-            case CON: {
-                code = "CON" + String.format("%03d", count++);
-            }
-            break;
-            case HOU: {
-                code = "HOU" + String.format("%03d", count++);
-            }
-            break;
-            default:
-        }
-        return code;
+    @Override
+    public String toString() {
+        return "Property{" +
+                "propertyCode='" + propertyCode + '\'' +
+                ", location='" + location + '\'' +
+                ", numberOfBedrooms=" + numberOfBedrooms +
+                ", numberOfBathrooms=" + numberOfBathrooms +
+                ", rentPerMonth=" + rentPerMonth +
+                ", isOccupiedStatus=" + isOccupiedStatus +
+                '}';
     }
-
 }
